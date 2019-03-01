@@ -333,7 +333,7 @@ Like the \texttt{and} form, the \texttt{or} special form performs
 evaluation in a short-circuited manner, and is also defined to evaluate
 to the value of its succeeding clause. This last requirement causes
 a slight complication under the strict model of evaluation, as it
-requires to capture the value of expression in order to make sure that it
+requires the value of the expression to be captured, in order to make sure that it
 is evaluated only once:
 
 \begin{Snippet}
@@ -402,8 +402,8 @@ namely -- \texttt{unquote} and \texttt{unquote-splicing}) is used
 for creating data conveniently. The convenience stems from the fact,
 that the syntaxes \texttt{(quasiquote x)}, \texttt{(unquote x)} and
 \texttt{(unquote-splicing x)} can be abbreviated as \texttt{`x},
-\texttt{,x} and \texttt{,@x}, respectively. This allows to create
-data that contains some variable elements in it, for example the
+\texttt{,x} and \texttt{,@x}, respectively. This enables creation
+of data that contains some variable elements in it, for example the
 value of the expression
 \begin{Snippet}
 (let ((x 3)
@@ -423,9 +423,9 @@ returns three values: \texttt{1}, \texttt{2} and \texttt{3}.
 Normally (e.g. in the context of a function call) only the first
 value is taken into account, and the remaining ones are ignored.
 Scheme provides a special form \texttt{call-with-values},
-which allows to capture the remaining return values. For example,
+which allows the remaining return values to be captured. For example,
 \texttt{(call-with-values (lambda () (values 1 2 3)) list)} passes
-the values \texttt{1}, \texttt{2} and \texttt{3} as subsequent argument
+the values \texttt{1}, \texttt{2} and \texttt{3} as subsequent arguments
 to the \texttt{list} function (effectively creating the list \texttt{(1 2 3)}).
 
 We are going to assume here, that the \texttt{let*} form can be abused
@@ -509,7 +509,7 @@ Scheme is said to be a \emph{lexically scoped} language, as opposed
 to \emph{dynamically scoped}. \emph{Lexical scope} means
 that a symbol which occurs free in the body of a \texttt{lambda}
 expression (i.e. it does not appear on the argument list of the
-\texttt{lambda} expression) refers to the meaning from the context
+\texttt{lambda} expression) derives its meaning from the context
 of the definition of that \texttt{lambda} expression, rather than
 the context of its usage (as it is the case for dynamic scope).
 
@@ -536,14 +536,14 @@ is \texttt{10}, whereas in a lexically scoped language it is \texttt{25}.
 \subsection{A note on recursive definitions}
 
 Note that there is a significant difference between the bindings created
-using the \texttt{define} form and the ones obtained introduced by
+using the \texttt{define} form and those introduced by
 \texttt{let} or \texttt{lambda}. In particular, \texttt{lambda} creates
 a new scope, whereas \texttt{define} introduces new bindings to the
 current scope.
 
 This difference becomes particularly significant if one attempts
 to define a recursive function. Because of that, the following
-expression of the \textit{factorial} won't work as one could hope:
+expression of the \textit{factorial} won't work as one would hope:
 
 \begin{Snippet}
 (let ((! (lambda (n)
